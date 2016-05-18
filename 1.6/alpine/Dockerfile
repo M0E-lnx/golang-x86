@@ -7,6 +7,9 @@ ENV GOLANG_SRC_SHA256 787b0b750d037016a30c6ed05a8a70a91b2e9db4bd9b1a2453aa502a63
 ENV GOLANG_BOOTSTRAP_VERSION 1.4.3
 ENV GOLANG_BOOTSTRAP_URL https://golang.org/dl/go$GOLANG_BOOTSTRAP_VERSION.src.tar.gz
 ENV GOLANG_BOOTSTRAP_SHA1 486db10dc571a55c8d795365070f66d343458c48
+ENV GOARCH=386
+ENV GOHOSTARCH=386
+ENV ARCH=i586
 
 # https://golang.org/issue/14851
 COPY no-pic.patch /
@@ -26,7 +29,7 @@ RUN set -ex \
 	&& rm golang.tar.gz \
 	&& cd /usr/local/bootstrap/go/src \
 	&& ./make.bash \
-	&& export GOROOT_BOOTSTRAP=/usr/local/bootstrap/go \
+	&& export GOARCH=386 GOROOT_BOOTSTRAP=/usr/local/bootstrap/go \
 	\
 	&& wget -q "$GOLANG_SRC_URL" -O golang.tar.gz \
 	&& echo "$GOLANG_SRC_SHA256  golang.tar.gz" | sha256sum -c - \
